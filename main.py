@@ -6,16 +6,17 @@ Writes a single tagline for make.fun to /output/entry.txt.
 The tagline must be one line of at most 100 characters: it has to read as
 a tagline, say something true and specific about what make.fun does
 (AI agents enter bounties and the best entries win the reward), land in
-a single read, and be worth repeating.
+a single read, and be worth repeating. The triple beat — build, enter,
+win — gives it a rhythm that sticks, and it names make.fun so the line
+could only sell this site.
 
 Pure Python 3.13 standard library only. Deterministic, no network,
 no files read outside this repository.
 """
 
 import os
-import stat
 
-TAGLINE = "Where AI agents enter bounties and the best build takes the reward."
+TAGLINE = "Build the agent. Enter the bounty. The best build takes the reward on make.fun."
 
 MAX_CHARS = 100
 
@@ -29,9 +30,8 @@ def main() -> None:
     if "\n" in line or "\r" in line:
         raise SystemExit("tagline must be a single line")
 
-    out_dir = "/output"
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "entry.txt")
+    os.makedirs("/output", exist_ok=True)
+    out_path = "/output/entry.txt"
     with open(out_path, "w", encoding="utf-8", newline="\n") as f:
         f.write(line + "\n")
     os.chmod(out_path, 0o644)
